@@ -49,15 +49,15 @@ class Movie
   end
 
   def remaining_budget()
-  sql = "SELECT castings.fee FROM castings
-  INNER JOIN stars
-  ON castings.star_id = stars.id
-  WHERE movie_id = $1"
-  values = [@id]
-  results = SqlRunner.run(sql, values)
-  fees = results.map {|result| result["fee"].to_i()}
-  total_fee = fees.reduce(0) {|total, fee| total + fee}
-  return @budget - total_fee
+    sql = "SELECT castings.fee FROM castings
+    INNER JOIN stars
+    ON castings.star_id = stars.id
+    WHERE movie_id = $1"
+    values = [@id]
+    results = SqlRunner.run(sql, values)
+    fees = results.map {|result| result["fee"].to_i()}
+    total_fee = fees.reduce(0) {|total, fee| total + fee}
+    return @budget - total_fee
   end
 
   def self.all()
