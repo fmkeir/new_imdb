@@ -1,3 +1,6 @@
+require('pg')
+require_relative('../db/sql_runner')
+
 class Movie
 
   attr_accessor :title, :genre, :budget
@@ -27,5 +30,22 @@ class Movie
     WHERE id = $4"
     values = [@title, @genre, @budget, @id]
     SqlRunner.run(sql, values)
+  end
+
+  def delete()
+    sql = "DELETE FROM movies WHERE id = $1"
+    values = [@id]
+    SqlRunner.run(sql, values)
+  end
+
+  def self.all()
+    sql = "SELECT * FROM movies"
+    movies = SqlRunner.run(sql)
+    return movies.map{|movie| Movie.new(movie)}
+  end
+
+  def self.delete_all()
+    sql = "DELETE FROM movies"
+    SqlRunner.run(sql)
   end
 end
