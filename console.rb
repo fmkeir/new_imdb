@@ -34,22 +34,22 @@ movie2 = Movie.new({
 movie2.save()
 
 casting1 = Casting.new({
-  "star_id" => star1,
-  "movie_id" => movie1,
+  "star_id" => star1.id,
+  "movie_id" => movie1.id,
   "fee" => 25_000_000
   })
 casting1.save()
 
 casting2 = Casting.new({
-  "star_id" => star2,
-  "movie_id" => movie1,
+  "star_id" => star2.id,
+  "movie_id" => movie1.id,
   "fee" => 1_000_000
   })
 casting2.save()
 
 casting3 = Casting.new({
-  "star_id" => star1,
-  "movie_id" => movie2,
+  "star_id" => star1.id,
+  "movie_id" => movie2.id,
   "fee" => 2_000_000
   })
 casting3.save()
