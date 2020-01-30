@@ -48,15 +48,19 @@ class Movie
     return stars.map {|star| Star.new(star)}
   end
 
-  def remaining_budget()
+  def castings()
     sql = "SELECT castings.fee FROM castings
     INNER JOIN stars
     ON castings.star_id = stars.id
     WHERE movie_id = $1"
     values = [@id]
-    results = SqlRunner.run(sql, values)
-    fees = results.map {|result| result["fee"].to_i()}
-    total_fee = fees.reduce(0) {|total, fee| total + fee}
+    castings = SqlRunner.run(sql, values)
+    return castings.map {|casting| Casting.new(casting)}
+  end
+
+  def remaining_budget()
+    castings = self.castings()
+    total_fee = castings.reduce(0) {|total, casting| total + casting.fee}
     return @budget - total_fee
   end
 
